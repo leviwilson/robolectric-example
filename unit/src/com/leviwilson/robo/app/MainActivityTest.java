@@ -64,11 +64,11 @@ public class MainActivityTest {
     
     @Test
     public void itCanShowDetailsAboutAWidget() {
+        int theFirstPosition = 0;
         setWidgetsToBe(new Widget());
         createActivity();
         
-        final ListView listView = findFor(activity, id.widgets_list);
-        listView.getOnItemClickListener().onItemClick(null, null, 0, 0);
+        selectWidgetAt(theFirstPosition);
         
         assertThat(activity, started(WidgetDetailsActivity.class));
     }
@@ -80,6 +80,11 @@ public class MainActivityTest {
     private void setWidgetsToBe(Widget... widgets) {
         when(loader.load())
             .thenReturn(Arrays.asList(widgets));
+    }
+
+    private void selectWidgetAt(int index) {
+        final ListView listView = findFor(activity, id.widgets_list);
+        listView.getOnItemClickListener().onItemClick(null, null, index, index);
     }
 
 }
