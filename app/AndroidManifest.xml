@@ -8,6 +8,7 @@
         android:targetSdkVersion="15" />
 
     <application
+        android:name=".RoboExampleApplication"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
@@ -19,6 +20,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".WidgetActivity"
+            android:label="@string/title_activity_widget" >
         </activity>
     </application>
 
