@@ -1,17 +1,17 @@
 package com.leviwilson.robo.app;
 
 import static com.leviwilson.robo.app.ViewHelper.setTextTo;
-import android.app.Activity;
-import android.content.Intent;
+
+
+import android.app.*;
+import android.content.*;
 import android.os.Bundle;
 import android.view.*;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.*;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.leviwilson.robo.app.R.id;
-import com.leviwilson.robo.app.R.layout;
-import com.leviwilson.robo.app.models.Widget;
 
 public class MainActivity extends Activity {
 
@@ -19,15 +19,16 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
         findViewById(id.toggle_greeting).setOnClickListener(new ToggleGreetingOnClick());
-        
-        RoboExampleApp app = (RoboExampleApp) getApplication();
+
+        Application normalApplication = getApplication();
+        RoboExampleApp app = (RoboExampleApp) normalApplication;
         final WidgetLoader loader = app.instanceOf(WidgetLoader.class);
-        
+
         final ListView widgetsList = ViewHelper.findFor(this, id.widgets_list);
-        widgetsList.setAdapter(new ArrayAdapter<Widget>(getApplicationContext(), layout.widget_item, loader.load()));
-        
+        widgetsList.setAdapter(new WidgetAdapter(getApplicationContext(), loader.load()));
+
         widgetsList.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
@@ -50,5 +51,5 @@ public class MainActivity extends Activity {
             setTextTo(MainActivity.this, id.hello_world, "Hello, Northwoods!");
         }
     }
-    
+
 }
