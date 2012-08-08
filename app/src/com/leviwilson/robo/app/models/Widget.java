@@ -2,7 +2,7 @@ package com.leviwilson.robo.app.models;
 
 public class Widget {
     
-    private final String name;
+    private String name;
 
     public Widget() {
         name = "";
@@ -14,6 +14,10 @@ public class Widget {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
     }
 
 }

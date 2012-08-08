@@ -13,7 +13,9 @@ import org.mockito.Mock;
 
 import android.content.Context;
 import android.view.*;
+import android.widget.TextView;
 
+import com.leviwilson.robo.app.R.id;
 import com.leviwilson.robo.app.R.layout;
 import com.leviwilson.robo.app.models.Widget;
 
@@ -25,6 +27,7 @@ public class WidgetAdapterTest {
     @Mock Context context;
     @Mock LayoutInflater inflater;
     @Mock View view;
+    @Mock TextView textView;
 
     private List<Widget> widgets;
     
@@ -33,11 +36,7 @@ public class WidgetAdapterTest {
         widgets = Arrays.asList(new Widget());
         adapter = new WidgetAdapter(context, widgets);
         
-        when(context.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
-            .thenReturn(inflater);
-        
-        when(inflater.inflate(anyInt(), (ViewGroup)any()))
-            .thenReturn(view);
+        setupMocks();
     }
     
     @Test
@@ -46,10 +45,30 @@ public class WidgetAdapterTest {
     }
     
     @Test
+    public void theViewHasTheAppropriateWidgetName() {
+        widgets.get(0).setName("The Correct Widget");
+        
+        adapter.getView(0, null, null);
+        
+        verify(textView).setText("The Correct Widget");
+    }
+    
+    @Test
     public void itAlwaysInflatesCustomWidgets() {
         adapter.getView(0, null, null);
         
         verify(inflater).inflate(layout.widget_item, null);
+    }
+
+    private void setupMocks() {
+        when(context.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+            .thenReturn(inflater);
+        
+        when(inflater.inflate(anyInt(), (ViewGroup)any()))
+            .thenReturn(view);
+        
+        when(view.findViewById(id.widget_name))
+            .thenReturn(textView);
     }
     
 }
