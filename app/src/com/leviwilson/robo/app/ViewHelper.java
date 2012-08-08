@@ -1,12 +1,18 @@
 package com.leviwilson.robo.app;
 
 import android.app.Activity;
-import android.widget.*;
+import android.view.View;
+import android.widget.TextView;
 
 public class ViewHelper {
 
     public static String textOf(Activity activity, int id) {
         final TextView textView = (TextView) activity.findViewById(id);
+        return textView.getText().toString();
+    }
+
+    public static String textOf(final View view, int id) {
+        final TextView textView = (TextView) view.findViewById(id);
         return textView.getText().toString();
     }
 
@@ -16,6 +22,11 @@ public class ViewHelper {
 
     public static void setTextTo(Activity activity, int id, String text) {
         final TextView textView = (TextView) activity.findViewById(id);
+        textView.setText(text);
+    }
+
+    public static void setTextTo(View view, int id, String text) {
+        final TextView textView = (TextView) view.findViewById(id);
         textView.setText(text);
     }
 
